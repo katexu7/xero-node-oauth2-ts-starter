@@ -57,14 +57,12 @@ app.get('/welcome', (req: Request, res: Response) => {
 });
 
 app.get('/connect', async (req: Request, res: Response) => {
-	try {
-		//console.log("connecting...")
-		const consentUrl: string = await xero.buildConsentUrl();
-		res.redirect(consentUrl);
-	} catch (err) {
-		//console.log("err...")
-		res.send('Sorry, something went wrong');
-	}
+    try {
+        const consentUrl: string = await xero.buildConsentUrl();
+        res.json({ consentUrl });  // Send the consentUrl to the client
+    } catch (err) {
+        res.status(500).send('Sorry, something went wrong');
+    }
 });
 
 app.get('/callback', async (req: Request, res: Response) => {
