@@ -7,7 +7,7 @@ import { TokenSet } from 'openid-client';
 import { XeroAccessToken, XeroIdToken, XeroClient } from 'xero-node';
 
 const session = require('express-session');
-
+	
 const client_id: string = process.env.CLIENT_ID;
 const client_secret: string = process.env.CLIENT_SECRET;
 const redirectUrl: string = process.env.REDIRECT_URI;
@@ -57,14 +57,15 @@ app.get('/welcome', (req: Request, res: Response) => {
 });
 
 app.get('/connect', async (req: Request, res: Response) => {
-    try {
-        const consentUrl: string = await xero.buildConsentUrl();
-        res.json({ consentUrl });  // Send the URL back to the client
-    } catch (err) {
-        res.status(500).send('Sorry, something went wrong');
-    }
+	try {
+		//console.log("connecting...")
+		const consentUrl: string = await xero.buildConsentUrl();
+		res.redirect(consentUrl);
+	} catch (err) {
+		//console.log("err...")
+		res.send('Sorry, something went wrong');
+	}
 });
-
 
 app.get('/callback', async (req: Request, res: Response) => {
 	try {
