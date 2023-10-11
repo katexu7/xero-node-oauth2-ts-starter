@@ -86,7 +86,9 @@ app.get('/callback', async (req: Request, res: Response) => {
 
 		console.log(authData);
 
-		res.redirect('/welcome');
+		res.json(authData); 
+		
+		//res.redirect('/welcome');
 	} catch (err) {
 		res.send('Sorry, something went wrong');
 	}
