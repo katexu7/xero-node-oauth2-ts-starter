@@ -25,6 +25,6 @@
     "openid-client": "^3.14.0",
     "ts-lint": "^4.5.1",
     "ts-node-dev": "^1.0.0-pre.44",
-    "typescript": "^3.7.5"
+    "typescript": "^5.2.2"
   }
 }
