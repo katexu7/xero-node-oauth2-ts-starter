@@ -67,6 +67,9 @@ app.get('/connect', async (req: Request, res: Response) => {
 
 app.get('/callback', async (req: Request, res: Response) => {
     try {
+		console.log("Callback URL:", req.url);
+		alert("Callback URL:" + req.url)
+		
         const tokenSet: TokenSet = await xero.apiCallback(req.url);
         await xero.updateTenants();
         
@@ -90,9 +93,10 @@ app.get('/callback', async (req: Request, res: Response) => {
         // Assuming the client-side URL is 'http://your-client-url.com'
         res.redirect(`http://localhost:3000?authData=${authDataStr}`);
     } catch (err) {
-        console.error("Error in /callback:", err); // Log the detailed error
-        res.status(500).send('Sorry, something went wrong: ' + err.message); // Send the error message to the client for more detailed feedback
-    }
+		console.error("Error in /callback:", err);
+		res.status(500).send('Sorry, something went wrong: ' + (err.message || JSON.stringify(err)));
+	}
+	
 });
 
 
