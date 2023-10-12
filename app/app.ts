@@ -68,30 +68,24 @@ app.get('/connect', async (req: Request, res: Response) => {
 app.get('/callback', async (req: Request, res: Response) => {
 	console.log("Callback URL:", req.url);
     try {
-		
-		
-        const tokenSet: TokenSet = await xero.apiCallback(req.url);
-        await xero.updateTenants();
-        
-        const decodedIdToken: XeroIdToken = jwtDecode(tokenSet.id_token);
-        const decodedAccessToken: XeroAccessToken = jwtDecode(tokenSet.access_token);
+		const tokenSet: TokenSet = await xero.apiCallback(req.url);
+		await xero.updateTenants();
 
-        req.session.decodedIdToken = decodedIdToken;
-        req.session.decodedAccessToken = decodedAccessToken;
-        req.session.tokenSet = tokenSet;
-        req.session.allTenants = xero.tenants;
-        req.session.activeTenant = xero.tenants[0];
+		const decodedIdToken: XeroIdToken = jwtDecode(tokenSet.id_token);
+		const decodedAccessToken: XeroAccessToken = jwtDecode(tokenSet.access_token);
 
-        const authData: any = authenticationData(req, res);
+		req.session.decodedIdToken = decodedIdToken;
+		req.session.decodedAccessToken = decodedAccessToken;
+		req.session.tokenSet = tokenSet;
+		req.session.allTenants = xero.tenants;
+		// XeroClient is sorting tenants behind the scenes so that most recent / active connection is at index 0
+		req.session.activeTenant = xero.tenants[0];
 
-        console.log(authData);
+		const authData: any = authenticationData(req, res);
 
-        // Convert the authData object to a string representation (like JSON)
-        const authDataStr = encodeURIComponent(JSON.stringify(authData));
+		console.log(authData);
 
-        // Redirect to the client-side app with the authData as a query parameter
-        // Assuming the client-side URL is 'http://your-client-url.com'
-        res.redirect(`http://localhost:3000?authData=${authDataStr}`);
+		res.redirect('/organisation');
     } catch (err) {
 		console.error("Error in /callback:", err);
 		res.status(500).send('Sorry, something went wrong: ' + (err.message || JSON.stringify(err)));
