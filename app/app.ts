@@ -66,9 +66,10 @@ app.get('/connect', async (req: Request, res: Response) => {
 });
 
 app.get('/callback', async (req: Request, res: Response) => {
-    try {
-		console.log("Callback URL:", req.url);
+	console.log("Callback URL:", req.url);
 		alert("Callback URL:" + req.url)
+    try {
+		
 		
         const tokenSet: TokenSet = await xero.apiCallback(req.url);
         await xero.updateTenants();
