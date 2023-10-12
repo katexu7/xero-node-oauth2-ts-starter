@@ -85,8 +85,9 @@ app.get('/callback', async (req: Request, res: Response) => {
 
 		console.log(authData);
 
-		res.redirect('/organisation');
+		res.redirect('http://localhost:3000');
     } catch (err) {
+		console.log("Callback URL:", req.url);
 		console.error("Error in /callback:", err);
 		res.status(500).send('Sorry, something went wrong: ' + (err.message || JSON.stringify(err)));
 	}
