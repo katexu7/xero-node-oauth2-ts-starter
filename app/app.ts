@@ -67,7 +67,6 @@ app.get('/connect', async (req: Request, res: Response) => {
 
 app.get('/callback', async (req: Request, res: Response) => {
 	console.log("Callback URL:", req.url);
-		alert("Callback URL:" + req.url)
     try {
 		
 		
