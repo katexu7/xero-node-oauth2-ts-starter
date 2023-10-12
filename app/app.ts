@@ -11,10 +11,10 @@ const session = require('express-session');
 const client_id: string = process.env.CLIENT_ID;
 const client_secret: string = process.env.CLIENT_SECRET;
 const redirectUrl: string = process.env.REDIRECT_URI;
-const scopes: string = 'openid profile email accounting.settings accounting.reports.read accounting.journals.read accounting.contacts accounting.attachments accounting.transactions offline_access';
+//const scopes: string = 'openid profile email accounting.settings accounting.reports.read accounting.journals.read accounting.contacts accounting.attachments accounting.transactions offline_access';
 //const scopes: string = 'openid profile email offline_access hq.clients.read hq.staff.read'
 
-//const scopes: string = 'openid profile email offline_access practicemanager.read practicemanager.job.read practicemanager.client.read practicemanager.staff.read practicemanager.time.read'
+const scopes: string = 'openid profile email offline_access practicemanager.read practicemanager.job.read practicemanager.client.read practicemanager.staff.read practicemanager.time.read'
 
 const xero = new XeroClient({
 	clientId: client_id,
@@ -83,12 +83,18 @@ app.get('/callback', async (req: Request, res: Response) => {
 
         console.log(authData);
 
-        res.json(authData); // For now, return the authData to the client for debugging purposes
+        // Convert the authData object to a string representation (like JSON)
+        const authDataStr = encodeURIComponent(JSON.stringify(authData));
+
+        // Redirect to the client-side app with the authData as a query parameter
+        // Assuming the client-side URL is 'http://your-client-url.com'
+        res.redirect(`http://localhost:3000?authData=${authDataStr}`);
     } catch (err) {
         console.error("Error in /callback:", err); // Log the detailed error
         res.status(500).send('Sorry, something went wrong: ' + err.message); // Send the error message to the client for more detailed feedback
     }
 });
+
 
 
 
