@@ -66,31 +66,30 @@ app.get('/connect', async (req: Request, res: Response) => {
 });
 
 app.get('/callback', async (req: Request, res: Response) => {
-	try {
-		const tokenSet: TokenSet = await xero.apiCallback(req.url);
-		await xero.updateTenants();
-		
-		const decodedIdToken: XeroIdToken = jwtDecode(tokenSet.id_token);
-		const decodedAccessToken: XeroAccessToken = jwtDecode(tokenSet.access_token);
+    try {
+        const tokenSet: TokenSet = await xero.apiCallback(req.url);
+        await xero.updateTenants();
+        
+        const decodedIdToken: XeroIdToken = jwtDecode(tokenSet.id_token);
+        const decodedAccessToken: XeroAccessToken = jwtDecode(tokenSet.access_token);
 
-		req.session.decodedIdToken = decodedIdToken;
-		req.session.decodedAccessToken = decodedAccessToken;
-		req.session.tokenSet = tokenSet;
-		req.session.allTenants = xero.tenants;
-		// XeroClient is sorting tenants behind the scenes so that most recent / active connection is at index 0
-		req.session.activeTenant = xero.tenants[0];
+        req.session.decodedIdToken = decodedIdToken;
+        req.session.decodedAccessToken = decodedAccessToken;
+        req.session.tokenSet = tokenSet;
+        req.session.allTenants = xero.tenants;
+        req.session.activeTenant = xero.tenants[0];
 
-		const authData: any = authenticationData(req, res);
+        const authData: any = authenticationData(req, res);
 
-		console.log(authData);
+        console.log(authData);
 
-		res.json(authData); 
-		
-		//res.redirect('/welcome');
-	} catch (err) {
-		res.send('Sorry, something went wrong');
-	}
+        res.json(authData); // For now, return the authData to the client for debugging purposes
+    } catch (err) {
+        console.error("Error in /callback:", err); // Log the detailed error
+        res.status(500).send('Sorry, something went wrong: ' + err.message); // Send the error message to the client for more detailed feedback
+    }
 });
+
 
 
 const PORT = process.env.PORT || 5000;
