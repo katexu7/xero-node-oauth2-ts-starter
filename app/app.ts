@@ -79,11 +79,20 @@ app.get('/callback', async (req: Request, res: Response) => {
 		req.session.tokenSet = tokenSet;
 		req.session.allTenants = xero.tenants;
 		// XeroClient is sorting tenants behind the scenes so that most recent / active connection is at index 0
-		req.session.activeTenant = xero.tenants[0];
+		//req.session.activeTenant = xero.tenants[0];
+
+
+		const demoCompanyTenant = req.session.allTenants.find(tenant => tenant.tenantName === "Demo Company (AU)");
+          if (demoCompanyTenant) {
+              req.session.activeTenant = demoCompanyTenant;
+			  console.log(demoCompanyTenant);
+          } else {
+              throw new Error("Active Tenant for Xero Demo Company not found in req.session.allTenants.");
+          }
 
 		const authData: any = authenticationData(req, res);
 
-		console.log(authData);
+		
 
 		res.redirect('http://localhost:3000');
     } catch (err) {
