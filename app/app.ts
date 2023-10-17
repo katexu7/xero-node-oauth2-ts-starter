@@ -12,7 +12,7 @@ const client_id: string = process.env.CLIENT_ID;
 const client_secret: string = process.env.CLIENT_SECRET;
 const redirectUrl: string = process.env.REDIRECT_URI;
 
-const scopes: string = 'openid profile email offline_access practicemanager.read practicemanager.job.read practicemanager.client.read practicemanager.staff.read practicemanager.time.read'
+const scopes: string = 'openid practicemanager.read practicemanager.job.read practicemanager.client.read practicemanager.staff.read practicemanager.time.read'
 
 const xero = new XeroClient({
 	clientId: client_id,
