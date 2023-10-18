@@ -18,7 +18,7 @@ const xero = new XeroClient({
 	clientId: client_id,
 	clientSecret: client_secret,
 	redirectUris: [redirectUrl],
-	scopes: scopes.split(' '),
+	scopes: scopes.split(' ')
 });
 
 if (!client_id || !client_secret || !redirectUrl) {
@@ -67,7 +67,7 @@ app.get('/callback', async (req: Request, res: Response) => {
 	console.log("Callback URL:", req.url);
     try {
 		const tokenSet: TokenSet = await xero.apiCallback(req.url);
-		await xero.updateTenants();
+		await xero.updateTenants(false);
 
 		const decodedIdToken: XeroIdToken = jwtDecode(tokenSet.id_token);
 		const decodedAccessToken: XeroAccessToken = jwtDecode(tokenSet.access_token);
