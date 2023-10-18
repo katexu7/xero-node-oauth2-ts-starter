@@ -12,8 +12,8 @@ const client_id: string = process.env.CLIENT_ID;
 const client_secret: string = process.env.CLIENT_SECRET;
 const redirectUrl: string = process.env.REDIRECT_URI;
 
-//const scopes: string = 'openid profile email offline_access practicemanager.read practicemanager.job.read practicemanager.client.read practicemanager.staff.read practicemanager.time.read'
-const scopes = "offline_access openid profile email accounting.transactions accounting.budgets.read accounting.reports.read accounting.journals.read accounting.settings accounting.settings.read accounting.contacts accounting.contacts.read accounting.attachments accounting.attachments.read files files.read assets assets.read projects projects.read payroll.employees payroll.payruns payroll.payslip payroll.timesheets payroll.settings";
+const scopes: string = 'openid profile email offline_access practicemanager.read practicemanager.job.read practicemanager.client.read practicemanager.staff.read practicemanager.time.read'
+//const scopes = "offline_access openid profile email accounting.transactions accounting.budgets.read accounting.reports.read accounting.journals.read accounting.settings accounting.settings.read accounting.contacts accounting.contacts.read accounting.attachments accounting.attachments.read files files.read assets assets.read projects projects.read payroll.employees payroll.payruns payroll.payslip payroll.timesheets payroll.settings";
 
 
 const xero = new XeroClient({
@@ -81,7 +81,7 @@ app.get('/callback', async (req: Request, res: Response) => {
 		console.log(req.session.allTenants)
 
 		//const demoCompanyTenant = req.session.allTenants.find(tenant => tenant.tenantName === "HK Partners Advisory Pty Ltd");
-		const demoCompanyTenant = req.session.allTenants.find(tenant => tenant.tenantName === "Demo Company (AU)");
+		const demoCompanyTenant = req.session.allTenants.find(tenant => tenant.tenantName === "HK Partners Advisory Pty Ltd");
           if (demoCompanyTenant) {
               req.session.activeTenant = demoCompanyTenant;
 			  console.log(demoCompanyTenant);
