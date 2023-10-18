@@ -69,7 +69,7 @@ app.get('/callback', async (req: Request, res: Response) => {
 	console.log("Callback URL:", req.url);
     try {
 		const tokenSet: TokenSet = await xero.apiCallback(req.url);
-		await xero.updateTenants();//false
+		await xero.updateTenants(false);//false
 		const decodedIdToken: XeroIdToken = jwtDecode(tokenSet.id_token);
 		const decodedAccessToken: XeroAccessToken = jwtDecode(tokenSet.access_token);
 		req.session.decodedIdToken = decodedIdToken;
