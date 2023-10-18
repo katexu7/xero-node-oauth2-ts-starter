@@ -68,21 +68,16 @@ app.get('/connect', async (req: Request, res: Response) => {
 app.get('/callback', async (req: Request, res: Response) => {
 	console.log("Callback URL:", req.url);
     try {
-		console.log('step 1')
 		const tokenSet: TokenSet = await xero.apiCallback(req.url);
-		console.log('step 2')
 		await xero.updateTenants();//false
-		console.log('step 3')
 		const decodedIdToken: XeroIdToken = jwtDecode(tokenSet.id_token);
 		const decodedAccessToken: XeroAccessToken = jwtDecode(tokenSet.access_token);
-		console.log('step 4')
 		req.session.decodedIdToken = decodedIdToken;
 		req.session.decodedAccessToken = decodedAccessToken;
 		req.session.tokenSet = tokenSet;
 		req.session.allTenants = xero.tenants;
 		// XeroClient is sorting tenants behind the scenes so that most recent / active connection is at index 0
 		//req.session.activeTenant = xero.tenants[0];
-		console.log('step 5')
 		console.log(req.session.allTenants)
 
 		//const demoCompanyTenant = req.session.allTenants.find(tenant => tenant.tenantName === "HK Partners Advisory Pty Ltd");
@@ -96,9 +91,9 @@ app.get('/callback', async (req: Request, res: Response) => {
 
 		const authData: any = authenticationData(req, res);
 
-		console.log(authData)
+		res.status(200).send(authData);
 
-		//res.redirect('http://localhost:3000');
+		res.redirect('http://localhost:3000');
     } catch (err) {
 		console.error("Error in /callback:", err);
 	}
