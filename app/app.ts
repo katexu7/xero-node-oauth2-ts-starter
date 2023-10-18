@@ -91,7 +91,7 @@ app.get('/callback', async (req: Request, res: Response) => {
 
 		const authData: any = authenticationData(req, res);
 
-		res.status(200).send(authData);
+		//res.status(200).send(authData);
 
 		res.redirect('http://localhost:3000');
     } catch (err) {
