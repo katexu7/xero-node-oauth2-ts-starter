@@ -93,7 +93,7 @@ app.get('/callback', async (req: Request, res: Response) => {
 
 		console.log(authData)
 
-		res.redirect('http://localhost:3000');
+		//res.redirect('http://localhost:3000');
     } catch (err) {
 		console.error("Error in /callback:", err);
 	}
