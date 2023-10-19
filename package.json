@@ -5,9 +5,9 @@
   "main": "build/app.js",
   "scripts": {
   "tsc": "tsc",
-  "copy": "ncp ./app/key.json ./build/key.json",
+  "copy": "ncp ./app/key.json ./build/app/key.json",
   "dev": "ts-node-dev --respawn --transpile-only ./app/app.ts",
-  "prod": "tsc && npm run copy && node ./build/app.js"
+  "prod": "tsc && npm run copy && node ./build/app/app.js"
 }
 ,
   "author": "Xero Platform Team",
