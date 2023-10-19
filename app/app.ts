@@ -9,19 +9,12 @@ import { XeroAccessToken, XeroIdToken, XeroClient } from 'xero-node';
 
 import admin from 'firebase-admin';
 import {
-	getFirestore,
-	collection,
-	addDoc,
-	getDoc,
-	getDocs,
-	doc,
-	updateDoc,
-	deleteDoc,query, where 
+	getFirestore //,collection,addDoc,getDoc,getDocs,doc,updateDoc,deleteDoc,query, where 
   } from 'firebase/firestore';
 
   import { initializeApp } from 'firebase/app';
 
-  const firebaseServiceAccount = require("./keys/serviceAccountKey.json");
+  const firebaseServiceAccount = require("./keys/servicekey.json");
 
 // Initialize Firebase Admin
   admin.initializeApp({
