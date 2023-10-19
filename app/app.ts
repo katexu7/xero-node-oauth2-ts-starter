@@ -24,7 +24,7 @@ import {
   const firebaseServiceAccount = require("./keys/serviceAccountKey.json");
 
 // Initialize Firebase Admin
-admin.initializeApp({
+  admin.initializeApp({
 	credential: admin.credential.cert(firebaseServiceAccount)
   });
   
