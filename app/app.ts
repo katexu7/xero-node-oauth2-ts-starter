@@ -21,7 +21,7 @@ import {
 
   import { initializeApp } from 'firebase/app';
 
-  const firebaseServiceAccount = require("./serviceAccountKey.json");
+  const firebaseServiceAccount = require("./keys/serviceAccountKey.json");
 
 // Initialize Firebase Admin
 admin.initializeApp({
