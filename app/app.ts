@@ -14,15 +14,18 @@ import {
 
   import { initializeApp } from 'firebase/app';
 
-  
-  const path = require('path');
-  const firebaseServiceAccount = require(path.resolve(__dirname, 'key.json'));
+
+  admin.initializeApp({
+	credential: admin.credential.cert({
+	  projectId: process.env.FIREBASE_PROJECT_ID,
+	  privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'), // Properly format the key
+	  clientEmail: process.env.FIREBASE_CLIENT_EMAIL
+	})
+  });
   
 
-// Initialize Firebase Admin
-  admin.initializeApp({
-	credential: admin.credential.cert(firebaseServiceAccount)
-  });
+  
+  
   
   const firebaseConfig = {
 	apiKey: process.env.REACT_APP_APIKEY,
