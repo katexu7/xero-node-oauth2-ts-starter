@@ -14,8 +14,10 @@ import {
 
   import { initializeApp } from 'firebase/app';
 
-  const firebaseServiceAccount = require("./key.json");
-
+  
+  const path = require('path');
+  const firebaseServiceAccount = require(path.resolve(__dirname, 'key.json'));
+  
 
 // Initialize Firebase Admin
   admin.initializeApp({
