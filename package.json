@@ -7,7 +7,7 @@
   "tsc": "tsc",
   "copy": "ncp ./app/key.json ./build/key.json",
   "dev": "ts-node-dev --respawn --transpile-only ./app/app.ts",
-  "prod": "tsc && npm run copy && node ./build/app/app.js"
+  "prod": "tsc && npm run copy && node ./build/app.js"
 }
 ,
   "author": "Xero Platform Team",
