@@ -146,7 +146,7 @@ app.get('/callback', async (req: Request, res: Response) => {
 		});
 
 
-		res.redirect('http://localhost:3000');
+		res.redirect('http://localhost:8080');
     } catch (err) {
 		console.error("Error in /callback:", err);
 		res.status(500).send('Sorry, something went wrong.');
@@ -159,7 +159,7 @@ app.get('/callback', async (req: Request, res: Response) => {
 app.get('/tenant', (req: Request, res: Response) => {
         // Extract xero_userid from the cookies
         const xero_userid = req.cookies.xero_userid;
-    
+    	console.log(xero_userid)
         if (xero_userid) {
             return res.send({ xero_userid: xero_userid });
         } else {
